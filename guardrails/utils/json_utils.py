@@ -285,7 +285,9 @@ class ChoicePlaceholder(Placeholder):
         )
 
 
-def generate_type_skeleton_from_schema(schema: Object) -> Placeholder:
+def generate_type_skeleton_from_schema(
+    schema: Union[Object, ListDataType]
+) -> Placeholder:
     """Generate a JSON skeleton from an XML schema."""
 
     def _recurse_schema(schema: DataType):
@@ -345,7 +347,7 @@ be dropped in version 0.3.0 and beyond.""",
 
 
 def verify_schema_against_json(
-    schema: Object,
+    schema: Union[Object, ListDataType],
     generated_json: Dict[str, Any],
     prune_extra_keys: bool = False,
     coerce_types: bool = False,

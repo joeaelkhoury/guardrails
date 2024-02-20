@@ -218,6 +218,8 @@ class Guard(Runnable, Generic[OT]):
         rail = Rail.from_file(rail_file)
         if rail.output_type == "str":
             return cast(Guard[str], cls(rail=rail, num_reasks=num_reasks))
+        elif rail.output_type == "list":
+            return cast(Guard[List], cls(rail=rail, num_reasks=num_reasks))
         return cast(Guard[Dict], cls(rail=rail, num_reasks=num_reasks))
 
     @classmethod
@@ -243,6 +245,8 @@ class Guard(Runnable, Generic[OT]):
         rail = Rail.from_string(rail_string)
         if rail.output_type == "str":
             return cast(Guard[str], cls(rail=rail, num_reasks=num_reasks))
+        elif rail.output_type == "list":
+            return cast(Guard[List], cls(rail=rail, num_reasks=num_reasks))
         return cast(Guard[Dict], cls(rail=rail, num_reasks=num_reasks))
 
     @classmethod
@@ -268,6 +272,7 @@ class Guard(Runnable, Generic[OT]):
             reask_prompt=reask_prompt,
             reask_instructions=reask_instructions,
         )
+        # TODO: Add List[BaseModel] support
         return cast(
             Guard[Dict], cls(rail, num_reasks=num_reasks, base_model=output_class)
         )
